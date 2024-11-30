@@ -114,7 +114,7 @@ systemctl restart pwnagotchi
 1. **No Display**
    - Check if plugin is enabled in config
    - Verify Spotify credentials
-   - Check Pwnagotchi logs: `journalctl -u pwnagotchi -f`
+   - Check Pwnagotchi logs
 
 2. **Authorization Failed**
    - Generate new auth code
