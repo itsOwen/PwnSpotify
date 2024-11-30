@@ -11,6 +11,10 @@ Turn your Pwnagotchi into a music companion! Display your currently playing Spot
     └──────────────────┘
 ```
 
+## 🎬 Demo
+
+[Watch the YouTube Shorts video](https://youtube.com/shorts/euAg2Y6unZc?si=wvN4OWWJeb4soVpa)
+
 ## ✨ Features
 
 - 🔄 Real-time display of currently playing Spotify tracks
