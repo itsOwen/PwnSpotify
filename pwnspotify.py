@@ -43,6 +43,11 @@ class PwnSpotify(plugins.Plugin):
 
     def on_loaded(self):
         logging.info("[pwnspotify] Plugin loaded.")
+        # populate any unspecified options from __defaults__
+        for param in self.__defaults__:
+            if param not in self.options:
+                logging.debug("-- adding %s to options" % param)
+                self.options[param] = self.__defaults__[param]
         self.ready = True
         if self._load_saved_tokens():
             self.connection_established = True
@@ -269,6 +274,11 @@ class PwnSpotify(plugins.Plugin):
             
         if not text:
             return "No track playing"
+
+        # text is shorter than width, just show it
+        if len(text) < width:
+            self.scroll_position = 0
+            return text
         
         if not hasattr(self, 'last_static_time'):
             self.last_static_time = 0
@@ -284,12 +294,14 @@ class PwnSpotify(plugins.Plugin):
                 self.scroll_position = 0
             else:
                 return text
-        
-        padded_text = text + " " * width
+
+        # make text rotate in from right as it scrolls off the left
+        padded_text = text + "  " + text
         scroll_text = padded_text[self.scroll_position:self.scroll_position + width]
-        
-        if self.scroll_position >= len(padded_text) - width:
-            self.show_full_text = True
+
+        # once first copy scrolls out, start over
+        if self.scroll_position > len(text):
+            self.show_full_text = False # True
             self.last_static_time = current_time
             self.scroll_position = 0
             return text
